@@ -2,16 +2,17 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
-/* @var $model app\models\Skripsi */
+/* @var $model app\models\Pertanyaan */
 
-$this->title = Yii::t('app', 'Skripsi  Baru');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Skripsi'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('app', 'Update {modelClass}: ', [
+    'modelClass' => 'Pertanyaan',
+]) . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Pertanyaan'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="skripsi-create">
-
+<div class="pertanyaan-update">
 <div class="row">
     <div class="col-md-12">
         <div class="x_panel ">
@@ -32,5 +33,5 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-
 </div>
+

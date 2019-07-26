@@ -4,29 +4,22 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SkripsiSearch */
+/* @var $model app\models\PertanyaanSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="skripsi-search">
+<div class="pertanyaan-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'nim') ?>
+    <?= $form->field($model, 'pertanyaan') ?>
 
-    <?= $form->field($model, 'judul_skripsi') ?>
-
-    <?= $form->field($model, 'proposal') ?>
-
-    <?= $form->field($model, 'kartu_bimbingan') ?>
+    <?= $form->field($model, 'jenis') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

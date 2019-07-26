@@ -15,7 +15,8 @@ $config = [
      'allowActions' => [
         // add wildcard allowed action here!
        // 'lokasi/*',
-    // 'site/*',
+       'pertanyaan/*',
+     'site/logout',
     'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
@@ -154,7 +155,7 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'class' => 'app\models\BaseUser',
+            
             //'enableAutoLogin' => true,
          
          

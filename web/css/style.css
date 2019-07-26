@@ -1,5 +1,17 @@
-.table > thead > tr > th {
-	border-bottom-width: 1px;
-	font-size: 1em;
-	font-weight: 150 px;
-  }
+
+
+  .nav-lg .top_nav {
+    margin-left: 0px !important;
+}
+
+.nav-lg footer {
+    margin-left: 0px !important;
+}
+
+.nav-lg .left_col {
+    display: none !important;
+}
+
+.nav-lg .right_col {
+    margin-left: 0px !important;
+}

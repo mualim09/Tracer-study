@@ -4,7 +4,7 @@ use app\assets\MaterialPluginAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$this->title = 'E-Skripsi';
+$this->title = 'Tracer Study UIN Sunan Ampel';
 dmstr\web\AdminLteAsset::register($this);
 
 

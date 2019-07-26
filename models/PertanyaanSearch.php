@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Skripsi;
+use app\models\Pertanyaan;
 
 /**
- * SkripsiSearch represents the model behind the search form of `app\models\Skripsi`.
+ * PertanyaanSearch represents the model behind the search form of `app\models\Pertanyaan`.
  */
-class SkripsiSearch extends Skripsi
+class PertanyaanSearch extends Pertanyaan
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class SkripsiSearch extends Skripsi
     {
         return [
             [['id'], 'integer'],
-            [['nim', 'judul_skripsi', 'proposal', 'kartu_bimbingan'], 'safe'],
+            [['pertanyaan', 'jenis'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class SkripsiSearch extends Skripsi
      */
     public function search($params)
     {
-        $query = Skripsi::find();
+        $query = Pertanyaan::find();
 
         // add conditions that should always apply here
 
@@ -62,12 +62,8 @@ class SkripsiSearch extends Skripsi
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'nim', $this->nim])
-            ->andFilterWhere(['like', 'judul_skripsi', $this->judul_skripsi])
-            ->andFilterWhere(['like', 'proposal', $this->proposal])
-            ->andFilterWhere(['like', 'kartu_bimbingan', $this->kartu_bimbingan]);
-        $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
-            $query->andWhere(['kode_unit' => $unit]);
+        $query->andFilterWhere(['like', 'pertanyaan', $this->pertanyaan])
+            ->andFilterWhere(['like', 'jenis', $this->jenis]);
 
         return $dataProvider;
     }

@@ -44,7 +44,7 @@ if (Yii::$app->controller->action->id === 'login') {
      * @var string
      * @var \yii\web\View $this
      */
-    $this->title = 'E-Skripsi';
+    $this->title = 'Tracer Study Alumni UIN Sunan Ampel';
   
 
     $bundle = yiister\gentelella\assets\Asset::register($this); ?>
@@ -85,7 +85,7 @@ if (Yii::$app->controller->action->id === 'login') {
             <div class="left_col scroll-view">
 
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="<?=Url::to(['/']); ?>" class="site_title"><i class="fa fa-graduation-cap"></i> <span>E-Skripsi</span></a>
+                    <a href="<?=Url::to(['/']); ?>" class="site_title"><i class="fa fa-list-alt"></i> <span>Tracer Study</span></a>
                 </div>
                 <div class="clearfix"></div>
 
@@ -176,7 +176,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <!-- footer content -->
         <footer>
             <div class="pull-left">
-             E-skripsi &copy; <?=date('Y'); ?>
+             PUSTIPD Uinsa &copy; <?=date('Y'); ?>
             </div>
             <div class="clearfix"></div>
         </footer>

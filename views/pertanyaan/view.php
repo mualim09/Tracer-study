@@ -5,15 +5,15 @@ use yii\widgets\DetailView;
 use hscstudio\mimin\components\Mimin;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\SuratMasuk */
+/* @var $model app\models\Pertanyaan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Surat Masuk'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Pertanyaan'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="surat-masuk-view">
+<div class="pertanyaan-view">
 
-    <h3><?= Html::encode($this->title) ?></h3>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
              <?php if ((Mimin::checkRoute($this->context->id."/update"))){ ?>        <?= Html::a(Yii::t('app', 'Ubah'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -29,22 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'jenis_surat_id',
-            'tgl_surat',
-            'nomor_surat',
-            'perihal_surat',
-            'lampiran_surat',
-            'alamat_surat',
-            'salam_awal_surat',
-            'isi_surat:ntext',
-            'salam_akhir_surat',
-            'jabatan_pengirim_surat',
-            'nama_pengirim_surat',
-            'nip_surat',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
+            'pertanyaan',
+            'jenis:ntext',
         ],
     ]) ?>
 

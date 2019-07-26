@@ -73,16 +73,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body text-left">
-              <?php echo "<?= Html::a('<i class=\"material-icons\">add</i>' . Yii::t('app', '".(Inflector::camel2words(StringHelper::basename($generator->modelClass)))." Baru'), ['create'], ['class' => 'btn btn-success']) ?>" ?>
+              <?php echo "<?= Html::a( Yii::t('app', '".(Inflector::camel2words(StringHelper::basename($generator->modelClass)))." Baru'), ['create'], ['class' => 'btn btn-success']) ?>" ?>
             </div>
         </div>
     </div>
      <div class="col-md-12">
         <div class="card">
             <div class="card-header card-header-rose card-header-icon">
-                <div class="card-icon">
-                    <i class="material-icons">calendar_today</i>
-                </div>
+             
                 <h4 class="card-title"><?php echo '<?= $this->title ?>'; ?> </h4>
             </div>
             <div class="card-body">

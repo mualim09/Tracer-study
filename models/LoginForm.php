@@ -4,15 +4,16 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\Mahasiswa;
 
 /**
  * Login form.
  */
 class LoginForm extends Model
 {
-    public $username;
-    public $password;
-    public $rememberMe = true;
+    public $nim;
+
+
 
     private $_user;
 
@@ -23,11 +24,11 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['nim'], 'required'],
+
             // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            [['nim'], 'validatePassword'],
+
         ];
     }
 
@@ -40,11 +41,20 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Kombinasi Username dan Password Salah');
+        $mahasiswa = Mahasiswa::find()->where(['nim' => $this->nim])->one();
+        $_user = User::find()->where(['username' => $this->nim])->one();
+        if (is_null($_user)) {
+            $_user = new User();
+            $_user->username = $this->nim;
+            $_user->password_hash = md5($this->nim);
+            $_user->auth_key = md5($this->nim);
+
+            if (!is_null($mahasiswa)) {
+                $_user->email = $mahasiswa->email;
+                $_user->email = $mahasiswa->email;
             }
+            $_user->save(false);
+        
         }
     }
 
@@ -56,7 +66,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login($this->getUser(),  0);
         } else {
             return false;
         }
@@ -70,9 +80,8 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByUsername($this->nim);
         }
-
         return $this->_user;
     }
 }

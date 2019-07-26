@@ -87,7 +87,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post())  && $model->login()) {
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -104,14 +104,11 @@ class SiteController extends Controller
     public function actionLogout()
     {
 
-   $cookies = Yii::$app->response->cookies;
-   
 
       Yii::$app->user->logout();
-      
+      return  $this->goHome();      
 
-    
-        return $this->redirect('http://ctrl.uinsby.ac.id/index/portal');
+
     }
 
     /**
