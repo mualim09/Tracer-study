@@ -7,6 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
+use app\models\AdminForm;
 use app\models\ContactForm;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
@@ -22,6 +23,8 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+
+       
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout', 'signup'],
@@ -91,6 +94,20 @@ class SiteController extends Controller
             return $this->goBack();
         } else {
             return $this->render('login', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionAdmin()
+    {
+        $this->layout='main-login';
+
+        $model = new AdminForm();
+        if ($model->load(Yii::$app->request->post())  && $model->login()) {
+            return $this->goBack();
+        } else {
+            return $this->render('admin', [
                 'model' => $model,
             ]);
         }

@@ -3,6 +3,7 @@
 use hscstudio\mimin\components\Mimin;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use dmstr\widgets\Alert;
 use app\assets\MaterialPluginAsset;
 
 if (Yii::$app->controller->action->id === 'login') {
@@ -28,9 +29,9 @@ if (Yii::$app->controller->action->id === 'login') {
                     ['label' => 'User', 'icon' => 'user-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
                    ], ],
                    [  'visible' => !Yii::$app->user->isGuest,
-                   'label' => 'Skripsi',
+                   'label' => 'Tracer Study',
                    'icon' => 'book',
-                   'url' => ['/skripsi/index']],
+                   'url' => ['/tracer-study/index']],
 
                                   
                 ];
@@ -169,6 +170,8 @@ if (Yii::$app->controller->action->id === 'login') {
                 </div>
             <?php endif; ?>
             <div class="clearfix"></div>
+
+            <?=Alert::widget()?>
 
             <?= $content; ?>
         </div>

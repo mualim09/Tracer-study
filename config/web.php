@@ -21,6 +21,9 @@ $config = [
         'debug/*',
         'mimin/*', // only in dev modewuw
         'queue/*',
+        'tracer-study/*',
+        'site/captcha',
+        'site/admin',
     ],
 ],
 

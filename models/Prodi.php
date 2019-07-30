@@ -8,7 +8,7 @@ class Prodi extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'akademik.ak_prodi';
+        return 'gate.ms_unit';
     }
 
     /**

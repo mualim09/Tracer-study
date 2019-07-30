@@ -4,17 +4,15 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-use app\models\Mahasiswa;
 
 /**
  * Login form.
  */
-class LoginForm extends Model
+class AdminForm extends Model
 {
-    public $nim;
-    public $verifyCode;
-
-
+    public $username;
+    public $password;
+    public $rememberMe = true;
 
     private $_user;
 
@@ -25,12 +23,11 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['nim'], 'required'],
-
-            ['verifyCode', 'captcha', 'captchaAction' => '/site/captcha'],
+            [['username', 'password'], 'required'],
             // rememberMe must be a boolean value
-            [['nim'], 'validatePassword'],
-
+            ['rememberMe', 'boolean'],
+            // password is validated by validatePassword()
+            ['password', 'validatePassword'],
         ];
     }
 
@@ -43,23 +40,11 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
-        $mahasiswa = Mahasiswa::find()->where(['nim' => $this->nim])->one();
-        if (is_null($mahasiswa)) {
-            Yii::$app->session->setFlash("info", " NIM anda tidak ditemukan dalam sistem silahkan isi Tracer Study sesuai biodata anda");
-        }
-
-        $_user = User::find()->where(['username' => $this->nim])->one();
-        if (is_null($_user)) {
-            $_user = new User();
-            $_user->username = $this->nim;
-            $_user->password_hash = md5($this->nim);
-            $_user->auth_key = md5($this->nim);
-
-            if (!is_null($mahasiswa)) {
-                $_user->email = $mahasiswa->nim;
-
-            }    
-            $_user->save(false);
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Kombinasi Username dan Password Salah');
+            }
         }
     }
 
@@ -71,7 +56,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(),  0);
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         } else {
             return false;
         }
@@ -85,8 +70,9 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->nim);
+            $this->_user = User::findByUsername($this->username);
         }
+
         return $this->_user;
     }
 }

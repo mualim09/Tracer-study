@@ -25,15 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="x_panel ">
             <div class="x_title">
              
-                <h4 class="card-title"><?= $this->title ?></h4>
+            <h3><?= "<?= " ?>Html::encode($this->title) ?></h3>
+
             </div>
             <div class="x_content">
 
-                <?=
-                $this->render('_form', [
-                    'model' => $model,
-                ]);
-                ?>
+           
+<?= "<?= " ?>$this->render('_form', [
+    'model' => $model,
+]) ?>
 
             </div>
         </div>
