@@ -33,6 +33,10 @@ if (Yii::$app->controller->action->id === 'login') {
                    'icon' => 'book',
                    'url' => ['/tracer-study/index']],
 
+                   [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Pertanyaan',
+                   'icon' => 'question',
+                   'url' => ['/pertanyaan/index']],
                                   
                 ];
 
@@ -86,7 +90,7 @@ if (Yii::$app->controller->action->id === 'login') {
             <div class="left_col scroll-view">
 
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="<?=Url::to(['/']); ?>" class="site_title"><i class="fa fa-list-alt"></i> <span>Tracer Study</span></a>
+                    <a href='#' class="site_title"><i class="fa fa-list-alt"></i> <span>Tracer Study</span></a>
                 </div>
                 <div class="clearfix"></div>
 

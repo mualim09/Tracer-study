@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use mdm\behaviors\ar\RelationTrait;
 
 /**
  * This is the model class for table "tb_tracer_study".
@@ -21,6 +22,8 @@ class TracerStudy extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    use RelationTrait;
+
     public static function tableName()
     {
         return 'tb_tracer_study';
@@ -34,7 +37,7 @@ class TracerStudy extends \yii\db\ActiveRecord
         return [
             [['nama', 'alamat', 'no_telepon', 'email', 'fakultas', 'jurusan'], 'required'],
             [['alamat'], 'string'],
-            [['email'],'email'],
+            [['email'], 'email'],
             [['nim'], 'string', 'max' => 50],
             [['nama', 'email', 'fakultas', 'jurusan'], 'string', 'max' => 100],
             [['no_telepon'], 'string', 'max' => 20],
@@ -60,12 +63,21 @@ class TracerStudy extends \yii\db\ActiveRecord
 
     public function getProdi()
     {
-        return $this->hasOne(Prodi::className(),['kodeunit' =>'jurusan']);
+        return $this->hasOne(Prodi::className(), ['kodeunit' => 'jurusan']);
     }
- 
+
     public function getNama_prodi()
     {
-        return is_null($this->prodi)?"":$this->prodi->namaunit;
+        return is_null($this->prodi) ? "" : $this->prodi->namaunit;
     }
- 
+
+    public function getDetTracerStudy()
+    {
+        return $this->hasMany(Det_TracerStudy::className(), ['id_tracer' => 'id']);
+    }
+
+    public function setDetTracerStudy($value)
+    {
+        $this->loadRelated('detTracerStudy', $value);
+    }
 }

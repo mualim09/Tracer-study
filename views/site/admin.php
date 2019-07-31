@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
@@ -20,12 +21,12 @@ $fieldOptions2 = [
 ?>
 
 <div class="login-box">
-    <div class="login-logo">
-        <a href="#">Login</b></a>
+<div class="login-logo">
+        <img src="<?= Url::to(["/img/logo.png"]) ?>" alt="UIN Sunan Ampel Surabaya">
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Harap Login Untuk Memulai</p>
+        <p class="login-box-msg">Tracer Study UIN Sunan Ampel <br> Harap Login Untuk Memulai</p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
 

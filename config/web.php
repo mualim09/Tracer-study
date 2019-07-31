@@ -15,13 +15,18 @@ $config = [
      'allowActions' => [
         // add wildcard allowed action here!
        // 'lokasi/*',
-       'pertanyaan/*',
+   
      'site/logout',
     'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
         'queue/*',
-        'tracer-study/*',
+        'tracer-study/create',
+        'tracer-study/view',
+
+        'tracer-study/jurusan',
+        
+     
         'site/captcha',
         'site/admin',
     ],

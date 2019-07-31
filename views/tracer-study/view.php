@@ -13,18 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tracer-study-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-             <?php if ((Mimin::checkRoute($this->context->id."/update"))){ ?>        <?= Html::a(Yii::t('app', 'Ubah'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?php } if ((Mimin::checkRoute($this->context->id."/delete"))){ ?>        <?= Html::a(Yii::t('app', 'Hapus'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Apakah Anda yakin ingin menghapus item ini??'),
-                'method' => 'post',
-            ],
-        ]) ?>
-        <?php } ?>    </p>
+
 
     <?= DetailView::widget([
         'model' => $model,
@@ -34,9 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'alamat:ntext',
             'no_telepon',
             'email:email',
-            'fakultas',
-            'jurusan',
+            
         ],
     ]) ?>
-
+  <?=Html::a(
+                                    '<span class ="text-center btn btn-info"> Keluar </span>',
+                                    ['/site/logout'],
+                                    ['data-method' => 'post']
+                                ); ?>
 </div>

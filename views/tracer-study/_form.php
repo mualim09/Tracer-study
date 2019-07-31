@@ -7,6 +7,7 @@ use app\models\Prodi;
 use yii\helpers\ArrayHelper;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\TracerStudy */
 /* @var $form yii\widgets\ActiveForm */
@@ -62,22 +63,70 @@ $fakultas = ArrayHelper::map(
 
    <div class="row">
       <label class="col-md-3 col-form-label"><?= $model->getAttributeLabel('jurusan') ?></label>
-      <div class="col-md-6"><?= $form->field($model, 'jurusan')-> widget(DepDrop::classname(), [
+      <div class="col-md-6"><?= $form->field($model, 'jurusan')->widget(DepDrop::classname(), [
                                  'type' => DepDrop::TYPE_SELECT2,
                                  'data' => [$model->jurusan => $model->nama_prodi],
-                                 'options' => ['placeholder' => 'Pilih Jurusan ...'],
+                                 'options' => ['placeholder' => 'Pilih Program Studi ...'],
                                  'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                                  'pluginOptions' => [
                                     'depends' => ['tracerstudy-fakultas'],
                                     'url' => Url::to(['/tracer-study/jurusan']),
-                                    'placeholder' => 'Pilih Jurusan ...',
+                                    'placeholder' => 'Pilih Program Studi ...',
                                     'initialize' => true,
                                  ],
                               ])->label(false); ?></div>
    </div>
+   <br>
+   <br>
+   <br>
+   <br>
+
+   <?php
+   $i = 1;
+   foreach ($model->detTracerStudy as $detail) {
+
+      ?>
+      <div class="row">
+         <?= $form->field($detail, "[$i]id_pertanyaan")->hiddenInput()->label(false); ?>
+
+         <label class="col-md-3 col-form-label"> <?= $detail->pertanyaan->pertanyaan ?> </label>
+         <div class="col-md-6">
+            <?php
+            if ($detail->pertanyaan->jenis == 1) {
+
+               ?>
+               <?= $form->field($detail, "[$i]jawaban")->label(false); ?>
+        
+      <?php
+      } else {
+           $jawab = ArrayHelper::map($detail->pertanyaan->jawabans,'jawaban','jawaban');
+
+         ?>
+
+        <?= $form->field($detail,"[$i]jawaban")->radioList($jawab,['separator'=>'<br/>']) ->label(false); ?>
+            
+
+      <?php
+
+      }
+
+      ?>
+
+          </div>
+         </div>
+
+
+      <?php
+      $i++;
+   }
+
+   ?>
+
+   <br>
+   <br>
 
    <div class="form-group">
-      <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+      <?= Html::submitButton(Yii::t('app', 'Simpan'), ['class' => 'btn btn-success']) ?>
    </div>
 
    <?php ActiveForm::end(); ?>

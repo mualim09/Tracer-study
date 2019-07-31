@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use app\models\Prodi as Unit;
 use yii\helpers\Json;
 use app\models\Mahasiswa;
+use app\models\Pertanyaan;
+use app\models\Det_TracerStudy;
 
 /**
  * TracerStudyController implements the CRUD actions for TracerStudy model.
@@ -68,9 +70,43 @@ class TracerStudyController extends Controller
     {
         $model = new TracerStudy();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detTracerStudy = Yii::$app->request->post('Det_TracerStudy', []);
+
+
+
+                if ($model->save()) {
+                    $transaction->commit();
+                    Yii::$app->session->setFlash('success','Terima Kasih Atas Kesediaan Anda Mengisi Tracer Study Alumni UIN Sunan Ampel');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                $transaction->rollBack();
+                return $this->render('create', [
+                    'model' => $model,
+
+                ]);
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+
+            ]);
         } else {
+
+            $modelPertanyaan = Pertanyaan::find()->all();
+            $listPertanyaan = [];
+            foreach ($modelPertanyaan as $pertanyaan) {
+                $detail = new Det_TracerStudy();
+                $detail->id_pertanyaan = $pertanyaan->id;
+                $listPertanyaan[] = $detail;
+            }
+            $model->detTracerStudy = $listPertanyaan;
 
             $mahasiswa = Mahasiswa::find()->where(['nim' => Yii::$app->user->identity->username])->one();
             if (!is_null($mahasiswa)) {
@@ -79,16 +115,15 @@ class TracerStudyController extends Controller
                 $model->alamat = $mahasiswa->alamat;
                 $model->email = $mahasiswa->email;
                 $model->no_telepon = $mahasiswa->hp;
-                
+
                 $model->fakultas = $mahasiswa->fakultas->kodeunit;
                 $model->jurusan = $mahasiswa->kodeunit;
-                
-                
             }
-    
-      
+
+
             return $this->render('create', [
                 'model' => $model,
+
             ]);
         }
     }
