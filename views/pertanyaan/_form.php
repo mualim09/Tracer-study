@@ -10,6 +10,8 @@ use mdm\widgets\TabularInput;
 
 <div class="pertanyaan-form">
 
+
+
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($model) ?> <!-- ADDED HERE -->
 
