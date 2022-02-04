@@ -179,7 +179,7 @@ class Mahasiswa extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'akademik.ms_mahasiswa';
+        return 'akademik.ak_mahasiswa';
     }
 
     /**
@@ -372,7 +372,7 @@ class Mahasiswa extends \yii\db\ActiveRecord
 
     public function getProdi()
     {
-        return $this->hasOne(Prodi::className(), ['kodeunit' => 'kodeunit']);
+        return $this->hasOne(Prodi::className(), ['idunit' => 'idunit']);
     }
 
     public function getNama_prodi()
@@ -382,7 +382,7 @@ class Mahasiswa extends \yii\db\ActiveRecord
 
     public function getFakultas()
     {
-        return $this->hasOne(Prodi::className(), ['kodeunit' => 'kodeunitparent'])
+        return $this->hasOne(Prodi::className(), ['idunit' => 'parentunit'])
             ->via("prodi");
     }
 }

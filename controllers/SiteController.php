@@ -12,7 +12,11 @@ use app\models\ContactForm;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
 use app\models\SignupForm;
+use app\models\User;
+use app\models\AuthAssignment;
+
 use yii\base\InvalidParamException;
+
 use yii\web\BadRequestHttpException;
 
 class SiteController extends Controller
@@ -223,13 +227,81 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password was saved.');
 
+            Yii::$app->session->setFlash('success', 'New password was saved.');
             return $this->goHome();
         }
 
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+  
+   public function actionLoginFromCtrl()
+    {
+      
+         $cookies = $_COOKIE;
+            //print_r($cookies);
+           //die();
+          
+             $username =  (isset($_COOKIE['nip']))?$_COOKIE['nip'] :null;
+             
+ 
+            if ($username) {
+                $par    = base64_decode(base64_decode($username));
+                $datax  = explode('|', $par);
+                $nip    = $datax[0];
+                $token  = $datax[1];
+                $user = User::find()->where(['username'=>$nip])->one();
+                if(!$user) {
+                   $user=new User;
+                }
+                  
+                   $user->username = $nip;
+                   $user->email='-';
+                   $user->password_hash = md5($nip); 
+                  
+                   $user->auth_key = $token;
+                   $user->save(false);
+               
+                  AuthAssignment::deleteAll(['user_id'=>$user->id]);
+               //   die(var_dump($user->prodi));
+                  if(!empty($user->prodi)) {
+                  
+                  
+               $role = AuthAssignment::find()->where(['user_id'=>$user->id])->all();
+               //  die(var_dump($role));
+                 if(count($role)<1)
+                 {
+                   $role = new AuthAssignment;
+                   $role->item_name = 'pimpinan';
+                   $role->user_id = $user->id;
+                   $role->save(false);
+                 } 
+                    
+                  Yii::$app->user->login($user);
+      
+                    
+                    
+                 
+                   
+             
+            
+
+                } else {
+                  $user->delete();
+                  Yii::$app->session->setFlash('error', 'Anda Tidak Mempunyai Hak Akses Untuk Login. ');
+
+                  return $this->redirect('admin');
+
+      
+                  
+                }
+            
+             
+               
+              return $this->redirect('index');
+
+          } 
     }
 }

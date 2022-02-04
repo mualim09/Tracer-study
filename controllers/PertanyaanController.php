@@ -136,7 +136,10 @@ class PertanyaanController extends Controller
     {
 
         try {
-            $this->findModel($id)->delete();
+          //  $this->findModel($id)->delete();
+          $model = $this->findModel($id);
+          $model->status =0;
+          $model->save();
         } catch (\yii\db\IntegrityException  $e) {
             Yii::$app->session->setFlash('error', 'Data Tidak Dapat Dihapus Karena Dipakai Modul Lain');
         }

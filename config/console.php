@@ -23,6 +23,10 @@ $config = [
             ],
         ],
         'db' => $db,
+        'db' => require(__DIR__.'/db.php'),
+        'db_siakad' => require(__DIR__.'/db_siakad.php'),
+        'db_simpeg' => require(__DIR__.'/db_simpeg.php'),
+        
         'authManager'  => [
             'class'        => 'yii\rbac\DbManager',
         ],

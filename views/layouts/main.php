@@ -32,11 +32,56 @@ if (Yii::$app->controller->action->id === 'login') {
                    'label' => 'Tracer Study',
                    'icon' => 'book',
                    'url' => ['/tracer-study/index']],
+               [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Survei Kepuasan Pengguna Layanan',
+                   'icon' => 'book',
+                   'url' => ['/tracer-study/index-survey']],
 
                    [  'visible' => !Yii::$app->user->isGuest,
                    'label' => 'Pertanyaan',
                    'icon' => 'question',
                    'url' => ['/pertanyaan/index']],
+      
+                   
+                   [
+                    'visible' => !Yii::$app->user->isGuest,
+                    'label' => 'Laporan',
+                    'icon' => 'user-o',
+                    'url' => '#',
+                    'items' => [
+         [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Laporan  Hasil Tracer Study',
+                   'icon' => 'book',
+                   'url' => ['/report/index']],
+                    
+                   [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Laporan Waktu Tunggu',
+                   'icon' => 'clock-o',
+                   'url' => ['/laporan-lulus/waktu-tunggu']],
+
+                   [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Laporan Kesesuaian Pekerjaan',
+                   'icon' => 'check-square-o',
+                   'url' => ['/laporan-lulus/kesesuaian']],
+                   [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Laporan Tingkat Pekerjaan',
+                   'icon' => 'bar-chart-o',
+                   'url' => ['/laporan-lulus/tingkat-pekerjaan']],
+                   
+             
+                   [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Laporan Survey Pengguna Lulusan',
+                   'icon' => 'user-o', 
+                   'url' => ['/laporan-lulus/survey-kepuasan']],
+                   [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Hasil Survey Pengguna Lulusan',
+                   'icon' => 'star', 
+                   'url' => ['/survey-kepuasan']],
+                   
+                   ]
+
+                   ]
+                
                                   
                 ];
 
@@ -61,6 +106,8 @@ if (Yii::$app->controller->action->id === 'login') {
     <meta charset="<?= Yii::$app->charset; ?>" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" type="image/png" href="<?= Url::to('@web/uin.png'); ?>">
+       
     <?= Html::csrfMetaTags(); ?>
     <title><?= Html::encode($this->title); ?></title>
     <?php $this->head(); ?>
@@ -73,6 +120,7 @@ if (Yii::$app->controller->action->id === 'login') {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <?= Html::csrfMetaTags(); ?>
     <title><?= Html::encode($this->title); ?></title>
+  
     <?php $this->head(); ?>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -129,7 +177,7 @@ if (Yii::$app->controller->action->id === 'login') {
                     <div class="nav toggle">
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
-
+                  <?php if(!Yii::$app->user->isGuest) { ?>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -148,6 +196,7 @@ if (Yii::$app->controller->action->id === 'login') {
                         </li>
 
                     </ul>
+                   <?php } ?>
                 </nav>
             </div>
 

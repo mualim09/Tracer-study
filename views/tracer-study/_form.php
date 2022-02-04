@@ -13,8 +13,8 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 
 $fakultas = ArrayHelper::map(
-   Prodi::find()->select(['kodeunit', 'namaunit'])->where(['level' => '1'])->asArray()->all(),
-   'kodeunit',
+   Prodi::find()->select(['idunit', 'namaunit'])->where(['levelunit' => '2'])->asArray()->all(),
+   'idunit',
    'namaunit'
 );
 
@@ -69,6 +69,12 @@ $fakultas = ArrayHelper::map(
             <label class="col-md-3 col-form-label"><?= $model->getAttributeLabel('email') ?></label>
             <div class="col-md-6"><?= $form->field($model, 'email')->textInput(['maxlength' => true])->label(false) ?></div>
          </div>
+
+         <div class="row">
+            <label class="col-md-3 col-form-label"><?= $model->getAttributeLabel('tahun_lulus') ?></label>
+            <div class="col-md-6"><?= $form->field($model, 'tahun_lulus')->textInput(['maxlength' => true])->label(false) ?></div>
+         </div>
+
 
          <div class="row">
             <label class="col-md-3 col-form-label"><?= $model->getAttributeLabel('fakultas') ?></label>
@@ -131,7 +137,7 @@ $fakultas = ArrayHelper::map(
 
                   <?php
                   } else {
-                     $jawab = ArrayHelper::map($detail->pertanyaan->jawabans, 'jawaban', 'jawaban');
+                     $jawab = ArrayHelper::map($detail->pertanyaan->jawabans, 'nilai', 'jawaban');
 
                      ?>
 

@@ -35,10 +35,11 @@ class TracerStudy extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'alamat', 'no_telepon', 'email', 'fakultas', 'jurusan'], 'required'],
-            [['alamat'], 'string'],
+            [['nama', 'alamat', 'no_telepon', 'email', 'fakultas', 'jurusan','tahun_lulus'], 'required'],
+            [['alamat','jenis'], 'string'],
+            [['tgl_tracer'],'safe'],
             [['email'], 'email'],
-            [['nim'], 'string', 'max' => 50],
+            [['nim','nama_perusahaan','jenis_perusahaan'], 'string', 'max' => 50],
             [['nama', 'email', 'fakultas', 'jurusan'], 'string', 'max' => 100],
             [['no_telepon'], 'string', 'max' => 20],
         ];
@@ -63,14 +64,27 @@ class TracerStudy extends \yii\db\ActiveRecord
 
     public function getProdi()
     {
-        return $this->hasOne(Prodi::className(), ['kodeunit' => 'jurusan']);
+        return $this->hasOne(Prodi::className(), ['idunit' => 'jurusan']);
+    }
+  
+    public function getMahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::className(), ['nim' => 'nim']);
     }
 
     public function getNama_prodi()
     {
         return is_null($this->prodi) ? "" : $this->prodi->namaunit;
     }
+ public function getFakultass()
+    {
+        return $this->hasOne(Prodi::className(), ['idunit' => 'fakultas']);
+    }
 
+    public function getNama_fakultas()
+    {
+        return is_null($this->fakultass) ? "" : $this->fakultass->namaunit;
+    }
     public function getDetTracerStudy()
     {
         return $this->hasMany(Det_TracerStudy::className(), ['id_tracer' => 'id']);

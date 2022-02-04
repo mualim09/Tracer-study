@@ -15,11 +15,12 @@ class TracerStudySearch extends TracerStudy
     /**
      * @inheritdoc
      */
+   public $nama_fakultas;
     public function rules()
     {
         return [
             [['id'], 'integer'],
-            [['nim', 'nama', 'alamat', 'no_telepon', 'email', 'fakultas', 'jurusan'], 'safe'],
+            [['nim', 'nama', 'alamat', 'no_telepon', 'email', 'fakultas', 'jurusan','nama_fakultas'], 'safe'],
         ];
     }
 
@@ -39,7 +40,7 @@ class TracerStudySearch extends TracerStudy
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$jenis)
     {
         $query = TracerStudy::find();
 
@@ -60,8 +61,15 @@ class TracerStudySearch extends TracerStudy
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+           'fakultas' => $this->nama_fakultas,
         ]);
-
+      
+   
+      if(Yii::$app->user->identity->prodi!==null) {
+           $prodi=Yii::$app->user->identity->prodi;
+           $query->where(['or',['fakultas'=>$prodi->idunit],['jurusan'=>$prodi->idunit]]);
+        
+       }   
         $query->andFilterWhere(['like', 'nim', $this->nim])
             ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'alamat', $this->alamat])
@@ -69,7 +77,8 @@ class TracerStudySearch extends TracerStudy
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'fakultas', $this->fakultas])
             ->andFilterWhere(['like', 'jurusan', $this->jurusan]);
-
+      
+        $query->andWhere(['jenis'=>$jenis]);
         return $dataProvider;
     }
 }

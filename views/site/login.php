@@ -12,7 +12,7 @@ $this->title = 'Masuk';
 
 $fieldOptions1 = [
     'options' => ['class' => 'form-group has-feedback'],
-    'inputTemplate' => "{input}<span class='glyphicon glyphicon-user form-control-feedback'></span>",
+    'inputTemplate' => "{input}",
 ];
 
 $fieldOptions2 = [
@@ -36,7 +36,7 @@ $fieldOptions2 = [
         <!-- ADDED HERE -->
         <?= $form
             ->field($model, 'nim', $fieldOptions1)
-            ->label(false)
+            ->label('Untuk Alumni Sebelum Tahun 2009 Silahkan isi NIM dengan "-"')
             ->textInput(['placeholder' => 'NIM']); ?>
 
 
@@ -45,6 +45,7 @@ $fieldOptions2 = [
         ])->label(false) ?>
         <?= Html::submitButton('Masuk', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']); ?>
 
+        <?= Html::a('Survey Pengguna Lulusan',['/tracer-study/survey'], ['class' => 'btn btn-success btn-block btn-flat', 'name' => 'login-button']); ?>
 
 
 

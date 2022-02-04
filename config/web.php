@@ -17,6 +17,7 @@ $config = [
        // 'lokasi/*',
    
      'site/logout',
+       'site/login-from-ctrl',
     'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
@@ -25,6 +26,8 @@ $config = [
         'tracer-study/view',
 
         'tracer-study/jurusan',
+  
+        'tracer-study/survey',
         
      
         'site/captcha',
@@ -112,6 +115,7 @@ $config = [
         'formatter' => [
             'dateFormat' => 'dd MMM yyyy',
             'decimalSeparator' => ',',
+               'nullDisplay' => '',
             'thousandSeparator' => '.',
             'currencyCode' => 'Rp',
        ],
@@ -225,12 +229,16 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-       'allowedIPs' => ['*']
+         
+
+    
+
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
+        'allowedIPs' =>['*'],
         'generators' => [
         'myCrud' => [
             'class' => 'app\templates\crud\Generator',

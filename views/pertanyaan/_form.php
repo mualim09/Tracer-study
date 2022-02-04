@@ -24,6 +24,12 @@ use mdm\widgets\TabularInput;
             
           
         ])->label(false)?></div></div> 
+    <div class="row">
+    <label class="col-md-3 col-form-label"><?=$model->getAttributeLabel('peruntukan') ?></label>
+        <div class="col-md-6"><?=$form->field($model, 'peruntukan')->dropDownList(["Tracer Study" => 'Tracer Study','Survey Kepuasan' => "Survey Kepuasan" ],[
+            
+          
+        ])->label(false)?></div></div> 
 
 
         <div class="x_title" id="div-jawaban">
@@ -35,7 +41,8 @@ use mdm\widgets\TabularInput;
     <thead>
         <tr>
            
-            <th width="80%">Jawaban</th>
+            <th width="40%">Jawaban</th>
+            <th width="40%">Nilai</th>
            
 
             <th><a id="btn-add2" href="#"><span class="glyphicon glyphicon-plus"></span></a></th>

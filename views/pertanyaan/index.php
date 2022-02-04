@@ -9,7 +9,16 @@ use yii\grid\GridView;
 
 $gridColumns=[['class' => 'yii\grid\SerialColumn'], 
             'pertanyaan',
-            'jenis:ntext',
+              ['attribute'=>'status',
+              'value'=>function($model) {
+                return $model->status==1?"Aktif":"Non Aktif";
+              }],
+               ['attribute'=>'Jenis',
+              'value'=>function($model) {
+                return $model->jenis==1?"Isian":"Multiple Choise";
+              }],
+              'peruntukan',
+              
 
            ['class' => 'yii\grid\ActionColumn', 'options' => [
             'width' => '120px',

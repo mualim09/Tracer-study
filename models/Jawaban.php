@@ -29,7 +29,7 @@ class Jawaban extends \yii\db\ActiveRecord
         return [
             [[ 'jawaban'], 'required'],
             [['id_pertanyaan'], 'integer'],
-            [['jawaban'], 'string', 'max' => 100],
+            [['jawaban','nilai'], 'string', 'max' => 100],
         ];
     }
 

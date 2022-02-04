@@ -197,4 +197,31 @@ class User extends ActiveRecord implements IdentityInterface
 
         return Mahasiswa::findOne($this->username);
     }
+  
+    public function getProdi()
+    {
+      
+      $prodi = Prodi::find()->where(['nipketua'=>$this->username])->
+        orWhere(['nipsekretaris'=>$this->username])->
+        orWhere(['nippembantu1'=>$this->username])->
+        orWhere(['nippembantu2'=>$this->username])->
+        orWhere(['nippembantu3'=>$this->username])->one();
+      
+        if(!$prodi)
+        {
+           $admin = Admin::find()->where(['nip'=>$this->username])->one();
+           if($admin)
+           {
+                       $prodi = Prodi::find()->where(['idunit'=>$admin->unit])->one();
+           }           
+
+        }
+
+
+
+      return $prodi;
+        
+      
+    }  
+  
 }

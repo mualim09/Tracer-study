@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use app\assets\MaterialPluginAsset;
+use yii\helpers\Url;
+use dmstr\widgets\Alert;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -14,6 +16,8 @@ dmstr\web\AdminLteAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language; ?>">
 <head>
+      <link rel="icon" type="image/png" href="<?= Url::to('@web/uin.png'); ?>">
+       
     <meta charset="<?= Yii::$app->charset; ?>"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags(); ?>
@@ -23,6 +27,7 @@ dmstr\web\AdminLteAsset::register($this);
 <body class="login-page">
 
 <?php $this->beginBody(); ?>
+             <?=Alert::widget()?>
 
     <?= $content; ?>
 

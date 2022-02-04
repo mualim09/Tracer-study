@@ -50,11 +50,15 @@ $fieldOptions2 = [
         
 </div>
         <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']); ?>
+            <?php ActiveForm::end(); ?>
+      
+      <br>
+  
 
+        <a href="login-from-ctrl" class =''>Login Pimpinan (Login Dulu Menggunakan Ctrl) </a>
   
    
      
-        <?php ActiveForm::end(); ?>
        
 
     </div>

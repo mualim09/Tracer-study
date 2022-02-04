@@ -30,7 +30,7 @@ class Pertanyaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pertanyaan', 'jenis'], 'required'],
+            [['pertanyaan', 'jenis','peruntukan'], 'required'],
             [['jenis'], 'string'],
             [['pertanyaan'], 'string', 'max' => 100],
         ];
